@@ -33,6 +33,7 @@
       }
     }
   },
+  "additionalProperties": false,
   "required": [
     "title",
     "quizzes"
