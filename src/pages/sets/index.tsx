@@ -4,7 +4,7 @@ import { sets } from "~/data"
 export default () => {
   return <>
     <div>
-      <For each={sets[0]()}>{(set, i) =>
+      <For each={sets()}>{(set, i) =>
         <div>
           <div>{set.title}</div>
         </div>}
