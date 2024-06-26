@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/akku1139/anki-app/main/misc/set.schema.json",
+  "title": "JSON Schema for anki-app",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "exclusiveMinimum": 0
+    },
+    "quizzes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "term": {
+            "type": "string"
+          },
+          "def": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "term",
+          "def"
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "quizzes"
+  ]
+}

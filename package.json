@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "license": "MIT",
+  "type": "module",
   "devDependencies": {
     "solid-devtools": "^0.29.2",
     "typescript": "^5.3.3",
