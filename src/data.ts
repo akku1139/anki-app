@@ -7,11 +7,20 @@ export const [sets, setSets] = createSignal<Array<Set>>([
     title: "テストセット1",
     quizzes: [
       {
-        key: "aaa",
-        answer: "bbb"
+        term: "aaa",
+        def: "bbb"
       }
     ]
   }
 ])
 
-// localStrageを使う
+const ls = localStorage.getItem("sets")
+if(ls !== null) {
+  let parsed
+  try {
+    parsed = JSON.parse(ls)
+  } catch(e) {
+    console.error("保存したデータのパースに失敗")
+    parsed = []
+  }
+}

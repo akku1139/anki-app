@@ -1,4 +1,4 @@
 export type Quiz = {
-  key: string,
-  answer: string,
+  term: string, // 用語
+  def: string,  // 意味
 }
