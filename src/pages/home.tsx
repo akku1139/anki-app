@@ -1,3 +1,3 @@
 export default () => (
-  <div>hello!</div>
+  <button >始める</button>
 )
