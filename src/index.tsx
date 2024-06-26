@@ -1,10 +1,10 @@
 /* @refresh reload */
-import { render } from 'solid-js/web';
+import { render } from 'solid-js/web'
 
-import './index.css';
-import App from './App';
+import './index.css'
+import Router from "./router"
 
-const root = document.getElementById('root');
+const root = document.getElementById('root')
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   throw new Error(
@@ -12,4 +12,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <App />, root!);
+render(() => <Router />, root!)
