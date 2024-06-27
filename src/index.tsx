@@ -2,10 +2,7 @@
 import { render } from "solid-js/web"
 
 import "./index.css"
-// import "tailwindcss/base.css"
-import App from "./App"
-
-import { sets } from "./data"
+import Router from "./Router"
 
 const root = document.getElementById("root")
 
@@ -15,6 +12,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   )
 }
 
-console.log(`${sets().length} 個のセットがあります`)
-
-render(() => <App />, root!)
+render(() => <Router />, root!)

@@ -3,10 +3,5 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  @apply text-cyan-50 bg-blue-950 text-center py-3
 }
