@@ -1,9 +1,9 @@
-import { JSXElement } from "solid-js";
+import { Component } from "solid-js";
 import { Quiz } from "~/types/quiz";
 
 export type QuizInterface = {
   question: string,
-  answer: JSXElement,
+  answer: Component,
   checkAnswer: () => boolean
 }
 

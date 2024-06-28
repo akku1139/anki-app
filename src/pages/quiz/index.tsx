@@ -21,6 +21,7 @@ export default () => {
   })
   const [quizInterface, setQuizInterface] = createSignal<QuizInterface>(Writing(nowQuiz()))
   const [quizCount, setQuizCount] = createSignal<number>(0)
+  const [checked, setChecked] = createSignal<boolean>(false)
   const setID = decodeURIComponent(params.setID)
 
   setFound(typeof sets()[setID] !== "undefined")
@@ -38,9 +39,11 @@ export default () => {
     setNowQuiz(quiz()[quizCount()])
   }))
 
-  createEffect(((e) => {
+  createEffect(on(answered, (e) => {
+    if(! answered()) return
     // 良くないコード
     const isCorrectAnswer = quizInterface().checkAnswer()
+    setChecked(true)
   }))
 
   return <>
@@ -52,13 +55,13 @@ export default () => {
         </div>
         <progress class="w-full" value={quizCount()} max={quiz().length} />
         <div class="text-xl">{quizInterface().question}</div>
-        {quizInterface().answer}
-        <Show when={answered()}>
-          <button onClick={(e) => {
+        {quizInterface().answer({})}
+        <Show when={checked()}>
+          <button autofocus={true} onClick={(e) => {
             setAnswered(false)
+            setChecked(false)
             setQuizCount(quizCount() + 1)
             setQuizInterface(Writing(nowQuiz()))
-            console.log(nowQuiz())
           }}>次の問題</button>
         </Show>
       </Show>
