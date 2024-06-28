@@ -30,6 +30,7 @@ export default () => {
         addSet(url)
       }
     })
+    return useNavigate()("/")
   }
 
   return <>
