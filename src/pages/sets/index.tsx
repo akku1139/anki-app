@@ -4,7 +4,7 @@ import { A, useNavigate, useSearchParams } from "@solidjs/router";
 import { addSet } from "./control";
 
 export default () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [addForm, setAddFormShow] = createSignal<boolean>(false)
 
   let setURL: HTMLInputElement | undefined
@@ -25,6 +25,7 @@ export default () => {
       gotoHome()
     }
     urls.forEach((url) => {
+      if(sets()[url]) return
       if(confirm(`${url} を追加します`)) {
         addSet(url)
       }
