@@ -5,7 +5,7 @@ import { A } from "@solidjs/router"
 
 export default () => {
   return <>
-    <div class="text-xl">回答するセットをご選択ください</div>
+    <div class="text-xl">回答するセットをお選びください</div>
     <div>
       <For each={Object.values(sets())}>{(set, i) => <Set set={set}></Set>}</For>
     </div>
