@@ -7,7 +7,7 @@ export default () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [addForm, setAddFormShow] = createSignal<boolean>(false)
 
-  let setURL: HTMLInputElement
+  let setURL: HTMLInputElement | undefined
 
   const gotoHome = () => {
     alert("問題の發生が有りました")
@@ -53,10 +53,20 @@ export default () => {
       <div class="border-2 rounded-lg h-20 w-5/6 mx-auto my-3 flex items-center justify-center">
         <div>
           <label for="setURL" class="mr-2">URLを入力</label>
-          <input id="setURL" type="url" class="text-cyan-950" placeholder="https://example.com/set.json" autofocus={true} ref={setURL} />
+          <input id="setURL" type="url" class="text-cyan-950" placeholder="https://example.com/set.json" autofocus={true} ref={setURL} onKeyDown={(e) => {
+            if(e.key === "Enter") {
+              if(!setURL) return
+              addSet(
+                setURL.value
+              )
+              setURL.value = ""
+              setAddFormShow(false)
+            }
+          }} />
         </div>
         <div>
           <button onClick={(e) => {
+            if(!setURL) return
             addSet(
               setURL.value
             )

@@ -1,12 +1,14 @@
-import { A, useParams } from "@solidjs/router"
-import { createSignal, Show, onMount, createEffect } from "solid-js"
+import { useParams } from "@solidjs/router"
+import { createSignal, Show, onMount, createEffect, on } from "solid-js"
 
 import { sets } from "~/data"
 import NotFound from "../404"
 import { Quiz } from "~/types/quiz"
-import { QuizInterface, QuizMethod } from "./types"
+import { QuizInterface } from "./types"
 
 import Writing from "./writing"
+
+export const [answered, setAnswered] = createSignal<boolean>(false)
 
 export default () => {
   const params = useParams()
@@ -20,7 +22,6 @@ export default () => {
   const [quizInterface, setQuizInterface] = createSignal<QuizInterface>(Writing(nowQuiz()))
   const [quizCount, setQuizCount] = createSignal<number>(0)
   const setID = decodeURIComponent(params.setID)
-  let bar = <progress class="w-full" />
 
   setFound(typeof sets()[setID] !== "undefined")
 
@@ -33,17 +34,14 @@ export default () => {
     })
   }
 
-  onMount(() => {
-    createEffect(() => {
-      bar.value = quizCount()
-    })
+  createEffect(on(quizCount, () => {
+    setNowQuiz(quiz()[quizCount()])
+  }))
 
-    bar.max = quiz().length
-  });
-
-  createEffect(() => {
-
-  })
+  createEffect(((e) => {
+    // 良くないコード
+    const isCorrectAnswer = quizInterface().checkAnswer()
+  }))
 
   return <>
     <Show when={found()} fallback={<NotFound />}>
@@ -52,9 +50,17 @@ export default () => {
           <span class="">{sets()[setID].title}</span>
           <span class="">{quizCount()} / {quiz().length}</span>
         </div>
-        {bar}
+        <progress class="w-full" value={quizCount()} max={quiz().length} />
         <div class="text-xl">{quizInterface().question}</div>
         {quizInterface().answer}
+        <Show when={answered()}>
+          <button onClick={(e) => {
+            setAnswered(false)
+            setQuizCount(quizCount() + 1)
+            setQuizInterface(Writing(nowQuiz()))
+            console.log(nowQuiz())
+          }}>次の問題</button>
+        </Show>
       </Show>
     </Show>
   </>

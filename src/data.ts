@@ -1,9 +1,11 @@
-import { createEffect, createSignal } from "solid-js"
+import { createEffect, createMemo, createSignal, on } from "solid-js"
 import { Set } from "~/types/set"
 
-export const [sets, setSets] = createSignal<{
+type Sets = {
   [keyURL: string]: Set
-}>({})
+}
+
+export const [sets, setSets] = createSignal<Sets>({})
 
 type LsData = Array<[
   string, // url
@@ -11,14 +13,15 @@ type LsData = Array<[
 ]>
 
 const [ls, setLs] = createSignal<string>(localStorage.getItem("sets") ?? "[]")
-createEffect(() => {
+createEffect(on(ls, () => {
   let parsed: LsData = []
-  console.log(ls())
+  localStorage.setItem("sets", ls())
   if(ls() !== null) {
     try {
       parsed = JSON.parse(ls())
     } catch(e) {
       console.error("保存したデータのパースに失敗")
+      localStorage.setItem("sets", "[]")
       parsed = []
     }
   }
@@ -32,9 +35,9 @@ createEffect(() => {
       }
     })
   })
-})
+}))
 
 export const addSource = async (url: string) => {
   const res = await (await fetch(url)).json()
-  setLs([...JSON.parse(ls()), [url, res.title]])
+  setLs(JSON.stringify([...JSON.parse(ls()), [url, res.title]]))
 }
