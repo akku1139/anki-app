@@ -33,7 +33,6 @@ export default () => {
   }
 
   return <>
-    <A href="/">戻る</A>
     <div>
       <For each={Object.values(sets())}>{(set) =>
         <div class="border-2 rounded-lg h-20 w-5/6 mx-auto my-3 flex items-center justify-center">
@@ -80,5 +79,6 @@ export default () => {
         </div>
       </div>
     </Show>
+    <A href="/">戻る</A>
   </>
 }
